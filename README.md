@@ -32,4 +32,68 @@ useful study guide.
 ## Lecture 1 (March 31)
 
 * Overview and syllabus.
-* Matrices **so large you can't store them**.  Where do they come from, and what do you do?  Sparse matrices.
+* Review: Dense linear algebra factorizations and scaling.
+* Matrices **so large you can't store them**.  Where do they come from, and what do you do?
+
+## Lecture 2 (April 2)
+
+* Sparse matrices and data structures
+
+## Lecture 3 (April 4)
+* pset 1 posted
+
+* Sparse-direct algorithms: nested dissection
+
+## Lecture 4 (April 7)
+
+* Iterative methods: the big picture.
+* Power method for eigenvalues: Convergence rate.  Deflation.
+
+## Lecture 5 (April 9)
+
+* Rayleigh quotients, inverse and shifted-inverse iteration.
+
+## Lecture 6 (April 11)
+* Better than the power method: Krylov subspace methods and Arnoldi.
+* pset 1 due, solutions
+* pset 2 posted
+
+## Lecture 7 (April 14)
+* Arnoldi and Rayleigh–Ritz estimation of eigenpairs from a Krylov basis.
+
+## Lecture 8 (April 16)
+* Lanczos
+* Restarting
+
+## Lecture 9 (April 18)
+* GMRES for Ax=b
+* project proposals due
+* pset 2 due, solutions
+* pset 3 posted
+
+## Holiday (April 21)
+
+## Lecture 10 (April 22)
+* Preconditioning
+
+## Lecture 11 (April 25)
+* From steepest descent to conjugate gradients.
+* pset 3 due, solutions
+* pset 4 posted
+
+## Lecture 12 (May 2)
+* Conjugate gradient, continued.
+* pset 4 due, solutions
+
+## Lecture 13 (May 5)
+* Other iterative algorithms: Overview
+
+## Lecture 14 (May 7)
+* Randomized linear algebra: the randomized SVD and low-rank approximation
+
+## Lecture 15 (May 9)
+* Low-rank updates
+
+## Lecture 16 (May 12)
+* Differentiating linear algebra solutions: Adjoint methods
+* final projects due
