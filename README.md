@@ -51,6 +51,8 @@ How can we generalize this to other sparsity patterns and other types of large-s
 ## Lecture 2 (April 2)
 
 * Sparse matrices and data structures
+* [sparse-matrix slides from 18.335 (Fall 2006)](https://github.com/mitmath/18335/blob/spring21/notes/lec21handout6pp.pdf)
+* [Julia notebook on dense and sparse matrices](https://nbviewer.org/github/mitmath/1806/blob/fall22/notes/Dense-and-Sparse.ipynb) from 18.06 (Fall 2022)
 
 ## Lecture 3 (April 4)
 * pset 1 posted
