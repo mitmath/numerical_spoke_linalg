@@ -64,8 +64,22 @@ How can we generalize this to other sparsity patterns and other types of large-s
 
 ## Lecture 4 (April 7)
 
-* Iterative methods: the big picture.
-* Power method for eigenvalues: Convergence rate.  Deflation.
+Iterative methods: the big picture is to solve $Ax=b$, $Ax = \lambda x$ and similar methods by iteratively improving a "guess" (usually starting with $x=0$ or random numbers), where the matrix $A$ is *only* used via matrix–vector products $Av$.
+
+* **Pro:** can be fast whenever $Av$ is fast (e.g. if $A$ is sparse, low-rank, [Toeplitz](https://en.wikipedia.org/wiki/Toeplitz_matrix), etc.).  Can scale to huge probems.
+* **Con:** hard to design an iteration that converges quickly, how well the methods work is often problem-dependent, often requires problem-depending tuning and experimentation (e.g. [preconditioners](https://en.wikipedia.org/wiki/Preconditioner))
+
+The simplest iterative method is the [power method for eigenvalues](https://en.wikipedia.org/wiki/Power_iteration): repeatedly multipling a random initial vector by $A$ converges to an eigenvector of the largest $|\lambda|$, *if* there is no other eigenvalue with equal magnitude.  Showed an example (easiest for real-symmetric $A=A^T$ matrices).
+
+Analyzed the convergence of the power method: if $\lambda_1$ is the biggest-magnitude eigenvalue and $\lambda_2$ is the second-biggest, then the error in the eigenvector on the k-th iteration is $O(|\lambda_2/\lambda_1|^k)$.
+
+Given an estimate $x$ for an eigenvector, a nice way to get an estimate for the corresponding eigenvalue is the [Rayleigh quotient](https://en.wikipedia.org/wiki/Rayleigh_quotient) $\lambda \approx x^T A x / x^T x$.   Numerically, showed that the error in this eigenvalue estimate is the *square* of the error in $x$ for real-symmetric $A$, and in fact the eigenvalue error converges as $O(|\lambda_2/\lambda_1|^{2k})$ in this case.  (We will see *why* this happens next time.)
+
+To find *other* eigenvectors and eigenvalues, one possibility is an algorithm called **deflation**. It exploits the fact that for real-symmetric $A$, the eigenvectors $q_1, q_2, \ldots$ for distinct $\lambda$ are orthogonal.   So, once we have found $q_1$, we can repeat the power method but **project each step to be orthogonal** to the previously found eigenvector, i.e. replace $x \longleftarrow x - q_1 (q_1^T x)$.  This will then converge to $q_2$ (for the second-biggest $|\lambda|$).  To get $q_3$, repeat the power method but project orthogonal to both $q_1, q_2$ with $x \longleftarrow x - q_1 (q_1^T x) - q_2 (q_2^T x)$, etcetera.
+
+Deflation is a terrible scheme if you want the *smallest* magnitude eigenvalue, however, since you'd have to compute *all* the other eigenvalues/vectors first.   Instead, to find the smallest |λ| one can simply apply the power method to $A^{-1}$: on each step, compute $y = A^{-1} x$, i.e. solve $Ay = x$.  This is called [(unshifted) inverse iteration](https://en.wikipedia.org/wiki/Inverse_iteration).   It relies on a fast way to solve $Ay = x$; for example, if $A$ is sparse, you can compute the sparse LU factorization and re-use it on each step with a sparse-direct solve.   In general, we will see that solution methods for eigenproblems and linear systems are often closely related!
+
+**Further reading:** FNC book [section 8.2: power iteration](https://fncbook.com/power) and [section 8.3: inverse iteration](https://fncbook.com/inviter). Trefethen & Bau, lecture 27.  See [this notebook on the power method](https://nbviewer.org/github/mitmath/1806/blob/fall22/notes/Power-Method.ipynb) from 18.06.
 
 ## Lecture 5 (April 9)
 
