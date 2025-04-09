@@ -83,7 +83,16 @@ Deflation is a terrible scheme if you want the *smallest* magnitude eigenvalue, 
 
 ## Lecture 5 (April 9)
 
-* Rayleigh quotients, inverse and shifted-inverse iteration.
+Proved that, for a real-symmetric matrix A=Aᵀ, the [Rayleigh quotient R(x)=xᵀAx/xᵀx](https://en.wikipedia.org/wiki/Rayleigh_quotient) is bounded above and below by the largest and smallest eigenvalues of A (the ["min–max theorem"](https://en.wikipedia.org/wiki/Min-max_theorem)).   This theorem is useful for lots of things in linear algebra.  Here, it helps us understand why the Rayleigh quotient is so accurate: the power method converges to a maximum-|λ| eigenvalue, which is either the smallest (most negative) or the largest (most positive) λ of a real-symmetric A, and hence that λ is an *extremum* (minimum or maximum) of the Rayleigh quotient where its gradient is zero.  In fact, you can show that ∇R=0 for *any* eigenvector (not necessarily min/max λ).   This means, if we Taylor expand R(x+δx) around an eigenvector x where R(x)=λ, you get R(x+δx)=λ+O(‖δx‖^2): the error in the eigenvalue λ goes as the *square* of the error in the eigenvector (for real-symmetric A).
+
+Last time, we considered inverse iteration.  A more general idea is **shifted inverse iteration**: at each step, compute $(A - \mu I)^{-1}$ times the previous step, for some shift $\mu$.   This converges to an eigenvector of the λ **closest to μ**.   If μ is very close to an eigenvalue, it converges extremely quickly.   Not only does this allow you to search for eigenvalues anywhere in the spectrum that you want, but it also gives you a way to accelerate iteration if you have a good guess for λ.
+
+But where would you get a good guess for λ?  A simple answer is to use the Rayleigh quotient R(x), where x comes from previous steps of the power iteration.  Even if the power iteration is converging slowly, once you have even a rough approximation for λ you can use it as a shift.  This leads to the algorithm of [Rayleigh-quotient iteration](https://en.wikipedia.org/wiki/Rayleigh_quotient_iteration): at each step, compute $x_k = (A - \mu_k I)^{-1} x_{k-1} / \Vert \cdots \Vert$, where $\mu_k = R(x_{k-1})$.   It turns out that this converges *faster* than exponentially with $k$: it *cubes the error* (triples the number of digits) at every step, once you get close enough to the eigenvalue.  (This is even faster than the quadratic convergence of Newton's method!)
+
+The only problem with Rayleigh-quotient is the need for a good initial guess — if you have a bad initial guess, it can be quite unpredictable what eigenvalue it converges to!   But any time you can obtain a rough idea of where the desired eigenvalue is, it means you can zoom into the exact value extremely quickly.
+
+**Further reading:** FNC book [section 8.3: inverse iteration](https://fncbook.com/inviter); however, beware that the book currently shows a less accurate (for real-symmetric/Hermitian A) method to estimate eigenvalues (issue [fnc#16](https://github.com/fncbook/fnc/issues/16)).  [Trefethen & Bau, lecture 27](https://www.cs.cmu.edu/afs/cs/academic/class/15859n-f16/Handouts/TrefethenBau/RayleighQuotient-27.pdf) covers these algorithms in much more depth.  [These slides by Per Persson (2006)](https://github.com/mitmath/18335/blob/spring21/notes/lec15handout6pp.pdf) are a useful summary.
+
 
 ## Lecture 6 (April 11)
 * Better than the power method: Krylov subspace methods and Arnoldi.
