@@ -95,9 +95,21 @@ The only problem with Rayleigh-quotient is the need for a good initial guess —
 
 
 ## Lecture 6 (April 11)
-* Better than the power method: Krylov subspace methods and Arnoldi.
-* pset 1 due, solutions
-* pset 2 posted
+* pset 1 due tonight: solutions coming soon
+* pset 2: coming soon
+
+Introduced Krylov subspaces, and the idea of **Krylov subspace** methods: ideally, we want to find the "best" solution in the *whole subspace* 𝒦ₙ spanned by {x₀,Ax₀,...,Aⁿ⁻¹x₀}, which is the *only* subspace you can get starting from x₀ if you are only allowed linear operations and matrix–vector products.
+
+The **Arnoldi** algorithm is a Krylov algorithm for eigenproblems.  It basically has two components:
+
+1. Find an orthonormal basis Qₙ for 𝒦ₙ.   Essentially, we will to this by a form of Gram–Schmidt, to be determined.
+2. Given the basis, give the "best" estimate in 𝒦ₙ for one or more eigenvectors and eigenvalues.
+
+Discussed what it means to find the "best" solution in the Krylov subspace 𝒦ₙ. Discussed the general principle of Rayleigh–Ritz methods for approximately solving the eigenproblem in a subspace: finding the Ritz vectors/values (= eigenvector/value approximations) with a residual perpendicular to the subspace (a special case of a Galerkin method).
+
+For Hermitian matrices A, I showed that the max/min Ritz values are the maximum/minimum of the Rayleigh quotient in the subspace, via the min–max theorem.  In this sense, at least for Hermitian matrices, the Ritz vectors are *optimal* in the sense of maximizing (or minimizing) the Rayleigh quotient in the Krylov space.  Another sense in which they are optimal for Hermitian A is that the Ritz vectors/values minimize ‖AV-VD‖₂ over all possible orthonormal bases V of the Krylov space and all possible diagonal matrices D (see the Bai notes below for a proof).   (Later, we will discuss an "optimal polynomial" interpretation of Arnoldi+Rayleigh–Ritz from Trefethen lecture 34.)
+
+**Further reading:** FNC book, [section 8.4 on Krylov subspaces and Arnoldi](https://fncbook.com/subspace). Trefethen lecture 33 on Arnoldi. [This 2009 course](https://web.cs.ucdavis.edu/~bai/Winter09/) on numerical linear algebra by Zhaojun Bai has [useful notes](https://web.cs.ucdavis.edu/~bai/Winter09/krylov.pdf) on Krylov methods, including a discussion of the Rayleigh–Ritz procedure.
 
 ## Lecture 7 (April 14)
 * Arnoldi and Rayleigh–Ritz estimation of eigenpairs from a Krylov basis.
