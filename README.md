@@ -96,7 +96,7 @@ The only problem with Rayleigh-quotient is the need for a good initial guess —
 
 ## Lecture 6 (April 11)
 * [pset 1 solutions](psets/pset1sol.ipynb)
-* pset 2: coming soon
+* [pset 2](psets/pset2.ipynb), due April 18
 
 Introduced Krylov subspaces, and the idea of **Krylov subspace** methods: ideally, we want to find the "best" solution in the *whole subspace* 𝒦ₙ spanned by {x₀,Ax₀,...,Aⁿ⁻¹x₀}, which is the *only* subspace you can get starting from x₀ if you are only allowed linear operations and matrix–vector products.
 
