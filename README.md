@@ -112,11 +112,28 @@ For Hermitian matrices A, I showed that the max/min Ritz values are the maximum/
 **Further reading:** FNC book, [section 8.4 on Krylov subspaces and Arnoldi](https://fncbook.com/subspace). Trefethen lecture 33 on Arnoldi. [This 2009 course](https://web.cs.ucdavis.edu/~bai/Winter09/) on numerical linear algebra by Zhaojun Bai has [useful notes](https://web.cs.ucdavis.edu/~bai/Winter09/krylov.pdf) on Krylov methods, including a discussion of the Rayleigh–Ritz procedure.
 
 ## Lecture 7 (April 14)
-* Arnoldi and Rayleigh–Ritz estimation of eigenpairs from a Krylov basis.
+* [Handwritten notes](https://www.dropbox.com/scl/fi/pxea51ooxryw2fo4t3rt6/Large-scale-Linalg-Spring-2025.pdf?rlkey=kbekxxgyp8xovp55nnsvrrxds&st=k76yqpnw&dl=0)
+* [Arnoldi experiments in Julia](https://nbviewer.org/github/mitmath/18335/blob/spring21/notes/Arnoldi.ipynb)
+
+How do we construct the orthonormal basis $Q_n$ of the Krylov space?  Reviewed the [Gram–Schmidt](https://en.wikipedia.org/wiki/Gram%E2%80%93Schmidt_process) algorithm, along with its numerically stable cousin, modified Gram–Schmidt.  Described how a variation on this idea can be used for the Krylov space: at each step, take the most recent orthonormal basis vector $q_n$, multiply it by $A$ to get $v = Aq_n$, and then project $v$ to be orthogonal to $q_1,\ldots,q_n$ by modified Gram–Schmidt to get $q_{n+1}$.  Crucially, this avoids explicitly computing {x₀,Ax₀,...,Aⁿ⁻¹x₀}, which is a terribly ill-conditioned basis for 𝒦ₙ cannot be post-processed (in finite precision) to obtain an accurate orthogonalization.
+
+Moreover, showed that the dot products taken during the Gram–Schmidt process are *exactly* the entries of our Rayleigh–Ritz matrix $H_n = Q_n^T A Q_n$.  This also means that $H_n$ is an [upper-Hessenberg matrix](https://en.wikipedia.org/wiki/Hessenberg_matrix) (*almost* upper triangular), a common intermediate step in many eigensolver algorithms.
+
+Closed by showing some experimental results with a very simple implementation of the Arnoldi algorithm (see notebook above).  Arnoldi indeed converges much faster than power iterations, and can give multiple eigenvalues at once.   Like the power method convergence is slower if the desired eigenvalues are clustered closely with undesired ones.  Unlike the power method, it can converge not just to the largest |λ| but to any desired "edge" of the set of eigenvalues (the "spectrum"), e.g. the λ with the most positive or most negative real parts.   Unlike the power method, the convergence of the Arnoldi algorithm is shift-invariant: it is the same for $A$ and $A + \mu I$ for any shift $\mu$.   Like the power method, you can also apply Arnoldi to a shift/invert operator $(A - \mu I)^{-1}$ to find the λ closest to any desired μ, assuming you have a fast way to solve $(A - \mu I)y=x$ for $y$.
+
+**Further reading**: for Gram–Schmidt, see e.g. Strang Intro to Linear Algebra, chapter 4, and Strang [18.06 lecture 17](https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/video-lectures/lecture-17-orthogonal-matrices-and-gram-schmidt).  Modified Gram–Schmidt is analyzed in Trefethen lecture 8, and a detailed analysis with proofs can be found in e.g. [this 2006 paper by Paige et al.](https://epubs.siam.org/doi/abs/10.1137/050630416) \[_SIAM J. Matrix Anal. Appl._ **28**, pp. 264-284\].  See also Per Persson's [18.335 slides on Gram–Schmidt](https://github.com/mitmath/18335/blob/spring21/notes/lec5.pdf).  See also the links on Arnoldi from last lecture.
 
 ## Lecture 8 (April 16)
-* Lanczos
-* Restarting
+* [Handwritten notes](https://www.dropbox.com/scl/fi/pxea51ooxryw2fo4t3rt6/Large-scale-Linalg-Spring-2025.pdf?rlkey=kbekxxgyp8xovp55nnsvrrxds&st=k76yqpnw&dl=0)
+* [Arnoldi experiments in Julia](https://nbviewer.org/github/mitmath/18335/blob/spring21/notes/Arnoldi.ipynb)
+
+Showed that in the case where A is Hermitian, Hₙ is Hermitian as well, so Hₙ is tridiagonal and most of the dot products in the Arnoldi process are zero.  Hence Arnoldi reduces to a three-term recurrence, and the Ritz matrix is tridiagonal.  This is called the **Lanczos** algorithm.
+
+Showed some computational examples (notebook above) of Arnoldi convergence. Discussed how rounding problems cause a loss of orthogonality in Lanczos, leading to "ghost" eigenvalues where extremal eigenvalues re-appear. In Arnoldi, we explicitly store and orthogonalize against all $q_j$ vectors, but then another problem arises: this becomes more and more expensive as n increases.  In general, the computational cost of $n$  steps Arnoldi with an $m \times m$ matrix is $O(mn^2)$ plus $n$ matrix–vector multiplications, and the storage is $O(mn)$ (for $Q_n$).  Without re-orthogonalization, Lanczos has $O(mn)$ computational cost (+ matvecs), but you still need to store $Q_n$ if you want eigenvectors.  Often, the limiting factor is the $O(mn)$ storage: in linear algebra, we often run out of memory before we run out of time.
+
+A solution to the loss of orthogonality in Lanczos and the growing computational effort in Arnoldi, along with the growing storage, is restarting schemes, where we go for n steps and then restart with the k "best" eigenvectors.   If we restart with k=1 *every* step, then we essentially have the power method, so while restarting makes the convergence worse the algorithm still converges, and converges significantly faster than the power method for n>1.
+
+**Further reading:** Trefethen, lecture 36. See the section on [implicitly restarted Lanczos](http://www.cs.utk.edu/~dongarra/etemplates/node117.html) in [Templates for the Solution of Algebraic Eigenvalue Problems](http://www.cs.utk.edu/~dongarra/etemplates/book.html).  Restarting schemes for Arnoldi (and Lanczos) turn out to be rather subtle — you first need to understand why the most obvious idea (taking the $k$ best Ritz vectors) is *not* a good idea, as [explained in these 18.335 notes](https://github.com/mitmath/18335/blob/spring21/notes/restarting-arnoldi.pdf).
 
 ## Lecture 9 (April 18)
 * GMRES for Ax=b
