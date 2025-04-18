@@ -136,10 +136,17 @@ A solution to the loss of orthogonality in Lanczos and the growing computational
 **Further reading:** Trefethen, lecture 36. See the section on [implicitly restarted Lanczos](http://www.cs.utk.edu/~dongarra/etemplates/node117.html) in [Templates for the Solution of Algebraic Eigenvalue Problems](http://www.cs.utk.edu/~dongarra/etemplates/book.html).  Restarting schemes for Arnoldi (and Lanczos) turn out to be rather subtle — you first need to understand why the most obvious idea (taking the $k$ best Ritz vectors) is *not* a good idea, as [explained in these 18.335 notes](https://github.com/mitmath/18335/blob/spring21/notes/restarting-arnoldi.pdf).
 
 ## Lecture 9 (April 18)
+* [Handwritten notes](https://www.dropbox.com/scl/fi/pxea51ooxryw2fo4t3rt6/Large-scale-Linalg-Spring-2025.pdf?rlkey=kbekxxgyp8xovp55nnsvrrxds&st=k76yqpnw&dl=0)
 * GMRES for Ax=b
 * project proposals due
-* pset 2 due, solutions
-* pset 3 posted
+* pset 2 due, solutions coming soon
+* pset 3: coming soon.
+
+There are many other eigensolver algorithms besides Arnoldi; the choice of algorithm depends strongly on the properties of the matrix and the desired eigenvalue.  For Hermitian/real-symmetric problems, a powerful algorithm is [LOBPCG](https://en.wikipedia.org/wiki/LOBPCG), a specialized algorithm for minimizing or maximizing the Rayleigh quotient.  There are also a remarkable class of algorithms based on the [residue theorem](https://en.wikipedia.org/wiki/Residue_theorem) of complex analysis, which allow you to efficiently extract all eigenvalues within in a specified region of the complex plane; a prominent version of this is [FEAST](https://www.feast-solver.org/references.htm).
+
+Introduced the [**GMRES**](https://en.wikipedia.org/wiki/Generalized_minimal_residual_method) algorithm: compute the basis Qₙ for 𝒦ₙ as in Arnoldi, but then minimize the residual ‖Ax-b‖₂ for x∈𝒦ₙ using this basis.  This yields a small (n+1)×n least-squares problem involving Hₙ.
+
+**Further reading:** The book [*Templates for the Solution of Algebraic Eigenvalue Problems* (2000)](https://www.cs.ucdavis.edu/~bai/ET/contents.html) gives a number of methods for various types of eigenproblems, but active research in this area continues.  For GMRES, see [FNC section 8.5](https://fncbook.com/gmres) and Trefethen, lectures 35.  In class, I showed a plot from GMRES applied to deconvolution, from [this tutorial blog post](https://rikvoorhaar.com/blog/gmres).
 
 ## Holiday (April 21)
 
