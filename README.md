@@ -140,7 +140,7 @@ A solution to the loss of orthogonality in Lanczos and the growing computational
 * GMRES for Ax=b
 * project proposals due
 * pset 2 due, solutions coming soon
-* pset 3: coming soon.
+* [pset 3](psets/pset3.ipynb): due Saturday 4/26 at midnight
 
 There are many other eigensolver algorithms besides Arnoldi; the choice of algorithm depends strongly on the properties of the matrix and the desired eigenvalue.  For Hermitian/real-symmetric problems, a powerful algorithm is [LOBPCG](https://en.wikipedia.org/wiki/LOBPCG), a specialized algorithm for minimizing or maximizing the Rayleigh quotient.  There are also a remarkable class of algorithms based on the [residue theorem](https://en.wikipedia.org/wiki/Residue_theorem) of complex analysis, which allow you to efficiently extract all eigenvalues within in a specified region of the complex plane; a prominent version of this is [FEAST](https://www.feast-solver.org/references.htm).
 
