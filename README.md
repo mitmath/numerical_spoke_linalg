@@ -151,7 +151,20 @@ Introduced the [**GMRES**](https://en.wikipedia.org/wiki/Generalized_minimal_res
 ## Holiday (April 21)
 
 ## Lecture 10 (April 22)
-* Preconditioning
+* [Handwritten notes](https://www.dropbox.com/scl/fi/pxea51ooxryw2fo4t3rt6/Large-scale-Linalg-Spring-2025.pdf?rlkey=kbekxxgyp8xovp55nnsvrrxds&st=k76yqpnw&dl=0)
+* GMRES for Ax=b
+
+Like Arnoldi/Lanczos, if GMRES does not converge quickly we must generally **restart** it, usually with a subspace of dimension 1; restarting GMRES repeatedly after k steps is called **GMRES(k)**. Unfortunately, unlike Arnoldi for the largest |λ|, restarted GMRES is _not guaranteed to converge_. If it doesn't converge, or if it simply converges slowly, we must do something to speed up convergence: preconditioning (next time).
+
+The solution to this problem is **preconditioning**: finding an (easy-to-compute) M such that MA (left preconditioning) or AM (right preconditioning) has clustered eigenvalues (solving MAx=Mb or AMy=b with x=My, respectively). Essentially, one can think of M as a crude approximation for A⁻¹ (or the inverse of a crude approximation of A that is easy to invert). Brief summary of some preconditioning ideas: multigrid, incomplete LU/Cholesky, Jacobi/block-Jacobi. (Since Jacobi preconditioners only have short-range interactions, they tend not to work well for matrices that come from finite-difference/finite-element discretizations on grids, but they can work well for diagonally dominant matrices that arise in spectral and integral-equation methods.)
+
+To get a more precise understanding of how GMRES (and other Krylov methods) converge, started transforming it to a problem of "polynomial fitting" — it turns out that the error after $n$ steps of GMRES is closely related to the error in "fitting" a degree-$n$ polynomial (with p(0)=1) to the eigenvalues, favoring clustered eigenvalues.
+
+One useful trick that we needed was based on a property of induced norms.  Recall that the induced norm $\Vert A \Vert$ of a matrix $A$ is defined as the maximum possible value of $\Vert A x \Vert / \Vert x \Vert$ (and equals the largest singular value of $A$ in the L2/Euclidean norm).   From this, it immediately follows that $\Vert ABx \Vert \le \Vert A \Vert \cdot \Vert B \Vert \cdot \Vert b \Vert$.   In the GMRES analysis, this allowed us to separate out terms in the diagonalization of $A$.
+
+**Further reading (preconditioning):**  [FNC section 8.8](https://fncbook.com/precond) on preconditioning and Trefethen, lecture 40.  [Templates for the Solution of Linear Systems](http://www.netlib.org/linalg/html_templates/Templates.html), chapter on [preconditioners](http://www.netlib.org/linalg/html_templates/node51.html), and e.g. _[Matrix Preconditioning Techniques and Applications](http://books.google.com?id=d9UdanCqJ1QC)_ by Ke Chen (Cambridge Univ. Press, 2005).   For Hermitian A, we can also specialize the GMRES algorithm analogous to Lanczos, giving MINRES and SYMMLQ: [Differences in the effects of rounding errors in Krylov solvers for symmetric indefinite linear systems](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.31.3064) by Sleijpen (2000); see also van der Vorst notes from Lecture 22 and the _Templates_ book.
+
+**Further reading (GMRES and polynomials):** Trefethen, lectures 34, 35. The convergence of GMRES for very non-normal matrices is a complicated subject; see e.g. [this paper on GMRES for defective matrices](http://citeseer.ist.psu.edu/viewdoc/summary?doi=10.1.1.48.1733) or [this paper surveying different convergence estimates](http://eprints.maths.ox.ac.uk/1290/). Regarding convergence problems with GMRES, see this 2002 presentation by Mark Embree on [Restarted GMRES dynamics](http://www.caam.rice.edu/~embree/householder.pdf). [Cullum (1996)](http://link.springer.com/article/10.1007%2FBF02127693) reviews the relationship between GMRES and a similar algorithm called FOM that is more Galerkin-like (analogous to Rayleigh–Ritz rather than least-squares).
 
 ## Lecture 11 (April 25)
 * From steepest descent to conjugate gradients.
