@@ -167,22 +167,30 @@ One useful trick that we needed was based on a property of induced norms.  Recal
 **Further reading (GMRES and polynomials):** Trefethen, lectures 34, 35. The convergence of GMRES for very non-normal matrices is a complicated subject; see e.g. [this paper on GMRES for defective matrices](http://citeseer.ist.psu.edu/viewdoc/summary?doi=10.1.1.48.1733) or [this paper surveying different convergence estimates](http://eprints.maths.ox.ac.uk/1290/). Regarding convergence problems with GMRES, see this 2002 presentation by Mark Embree on [Restarted GMRES dynamics](http://www.caam.rice.edu/~embree/householder.pdf). [Cullum (1996)](http://link.springer.com/article/10.1007%2FBF02127693) reviews the relationship between GMRES and a similar algorithm called FOM that is more Galerkin-like (analogous to Rayleigh–Ritz rather than least-squares).
 
 ## Lecture 11 (April 25)
-* From steepest descent to conjugate gradients.
-* pset 3 due, solutions
-* pset 4 posted
+* [Handwritten notes](https://www.dropbox.com/scl/fi/pxea51ooxryw2fo4t3rt6/Large-scale-Linalg-Spring-2025.pdf?rlkey=kbekxxgyp8xovp55nnsvrrxds&st=k76yqpnw&dl=0)
+* pset 3 due tomorrow, solutions coming soon
+* pset 4: coming soon
+
+Continued discussion of polynomial viewpoint on GMRES and Arnoldi convergence, from last lecture.  Some key points:
+* GMRES works best of the eigenvalues are mostly in a cluster, similar to the identity matrix.   Preconditioning tries to improve this.
+* Because of the p(0)=1 constraint of the GMRES polynomial, convergence of GMRES for $A$ is *not* the same as for a shifted matrix $A + \mu I$.  In particular, as the matrix becomes more ill-conditioned, i.e. one eigenvalue gets close to zero relative to the biggest λ, GMRES convergence slows.  Preconditioning (as well as other efforts in reformulating the origin of the matrix) tries to make the matrix well-conditioned.
+* Arnoldi's analysis is similar (see Trefethen), but its polynomial $p(z)$ has the n-th coefficient equal to 1, rather than the 0-th coefficient.  This makes (unrestarted) Arnoldi *shift-invariant*: it converges equally well for $A$ and $A + \mu I$.
+* In Arnoldi, the Ritz values (eigenvalue estimates) are precisely the roots of the optimal polynomial $p(z)$.  This means that Arnoldi works best if the desired eigenvalues are **extremal** (on the edges of the spectrum, e.g. the most positive or most negative real or imaginary parts, or biggest magnitudes) and are **not** clustered with many undesired eigenvalues.    Shift-and-invert $(A - \mu I)^{-1}$ is a way of "exploding" clusters near $\mu$, and for transforming the interior of the spectrum near $\mu$ to the edges of the spectrum.
+
+**Further reading (GMRES, Arnoldi, and polynomials):** Trefethen, lectures 34, 35, 40.   There are also eigenvalue algorithms that can exploit preconditioning if supplied, e.g. the [Jacobi–Davidson algorithm](https://doi.org/10.1002/gamm.201490038) or the LOBPCG algorithm mentioned earlier.
 
 ## Lecture 12 (May 2)
-* Conjugate gradient, continued.
+* From steepest descent to conjugate gradients.
 * pset 4 due, solutions
 
 ## Lecture 13 (May 5)
-* Other iterative algorithms: Overview
+* Conjugate gradient, continued.
 
 ## Lecture 14 (May 7)
-* Randomized linear algebra: the randomized SVD and low-rank approximation
+* Other iterative algorithms: Overview
 
 ## Lecture 15 (May 9)
-* Low-rank updates
+* Randomized linear algebra: the randomized SVD and low-rank approximation
 
 ## Lecture 16 (May 12)
 * Differentiating linear algebra solutions: Adjoint methods
