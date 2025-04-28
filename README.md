@@ -179,19 +179,38 @@ Continued discussion of polynomial viewpoint on GMRES and Arnoldi convergence, f
 
 **Further reading (GMRES, Arnoldi, and polynomials):** Trefethen, lectures 34, 35, 40.   There are also eigenvalue algorithms that can exploit preconditioning if supplied, e.g. the [Jacobi–Davidson algorithm](https://doi.org/10.1002/gamm.201490038) or the LOBPCG algorithm mentioned earlier.  You can construct the Arnoldi polynomial explicitly from its roots, the Ritz values; the analogous construction of the GMRES polynomial uses "harmonic" Ritz values, as explained in e.g. [Goossens and Roose (1999)](https://doi.org/10.1002/(SICI)1099-1506(199906)6:4%3C281::AID-NLA158%3E3.0.CO;2-B).
 
-## Lecture 12 (May 2)
-* From steepest descent to conjugate gradients.
+## Lecture 12 (April 28)
+* [Handwritten notes](https://www.dropbox.com/scl/fi/pxea51ooxryw2fo4t3rt6/Large-scale-Linalg-Spring-2025.pdf?rlkey=kbekxxgyp8xovp55nnsvrrxds&st=k76yqpnw&dl=0)
+* [Julia notebook on gradient descent for quadratic functions](https://nbviewer.org/github/mitmath/18065/blob/main/notes/Quadratic-Gradient-Descent.ipynb)
+
+Introduced the problem of minimizing **convex quadratic** functions $f(x) = \frac{1}{2} x^T A x - b^T x$ where $A = A^T$ is [symmetric positive definite (SPD)](https://en.wikipedia.org/wiki/Definite_matrix); this is also known as unconstrained [quadratic programming](https://en.wikipedia.org/wiki/Quadratic_programming).  Such a "bowl"-shaped function has a single minimum.  By taking the gradient, we find that the "downhill" direction is $-\nabla f = b - Ax = r$, where $r$ is the **residual**, immediately telling us that the solution is the $x$ solving $Ax=b$.  That is, minimizing a convex quadratic is equivalent to solving SPD systems.  This means that **optimization algorithms can be used to solve SPD Ax=b**, and conversely that better ways of solving SPD systems give us better ways to do quadratic optimization.  This is important because:
+
+1. SPD matrices show up in lots of real-world problems, any time $A = B^T B$ for some $B$ with independent columns.  This includes physics and graph problems involving the Laplacian operator $-\nabla^2$, which discretizes into an SPD matrix (assuming appropriate boundary conditions), as well as in least-square problems (which are convex quadratics).
+2. *Any* smooth $f(x)$ is **approximately convex quadratic** near a local minimum (unconstrained): just think of the Taylor series around a minimum where $\nabla f = 0$.   This means that understanding how to solve SPD systems quickly can potentially help us accelerate nearly *any* optimization problem.
+
+Introduced the method of **steepest descent** or simply **gradient descent**: at each step $k$, given a current estimate $x_k$ for the solution, make an improved estimate $x_{k+1} = x_k + \alpha r_k$, where $r_k = b - Ax_k = - \left. \nabla f \right_{x_k}$ is the current "downhill" gradient direction.   This is a very general (albeit primitive) strategy, the starting point for many optimization algorithms on very general functions.   How do we choose the stepsize parameter $\alpha$ (called the "learning rate" in ML)?  For an arbitrary nonlinear function $f(x)$, this is a tricky problem, but for the specific case of a quadratic $f$ we can solve for an "optimal" α analytically by "exact line search".
+
+In particular, suppose we are taking a step $x_{k+1} = x_k + \alpha d$ in some direction $d$ (e.g. $d=r_k$).  It is natural to choose the $\alpha$ that *minimizes* $f(x_{k+1})$.  We can solve this by setting the $\partial/\partial \alpha$ derivative to zero, but we can also see "geometrically" that the minimum must satisfy $d^T r_{k+1} = 0$: at the new point $x_{k+1}$, the gradient $-r_{k+1}$ must be $\perp d$, as otherwise it wouldn't minimize the value along the line.   Hence, we can show that $\alpha = d^T r_k / d^T A d$.  For $d = r_k \ne 0$, this implies $\alpha >0$: intuitively, we will always take a positive step in the downhill direction.
+
+However, showed with a numerical example (see [notebook](https://www.dropbox.com/scl/fi/pxea51ooxryw2fo4t3rt6/Large-scale-Linalg-Spring-2025.pdf?rlkey=kbekxxgyp8xovp55nnsvrrxds&st=k76yqpnw&dl=0)) that **gradient descent tends to "zig-zag"**, often converging rather slowly.  The basic problem is if $A$ has some eigenvalues much large than others, the function $f(x)$ looks like a long valley with steep walls, and the downhill direction points mostly perpendicular to the steep walls, rather than *along* the valley towards the optimum.  We want to improve this by deriving a Krylov-subspace method that minimizes f(x) over all previous search directions simultaneously.
+
+**Further reading:** Strang *Linear Algebra and Learning from Data* section VI.4; 18.065 [OCW lecture 21: Minimizing a Function Step by Step](https://ocw.mit.edu/courses/18-065-matrix-methods-in-data-analysis-signal-processing-and-machine-learning-spring-2018/resources/lecture-21-minimizing-a-function-step-by-step/) and [OCW lecture 22: Gradient Descent — Downhill to a Minimum](https://ocw.mit.edu/courses/18-065-matrix-methods-in-data-analysis-signal-processing-and-machine-learning-spring-2018/resources/lecture-22-gradient-descent-downhill-to-a-minimum/).   See also the useful notes, [An introduction to the conjugate gradient method without the agonizing pain](http://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf) by J. R. Shewchuk.
+
+## Lecture 13 (April 30)
+Convergence of gradient descent.  Conjugate gradients.
+
+## Lecture 14 (May 2)
+* Conjugate gradient, continued.
 * pset 4 due, solutions
 
-## Lecture 13 (May 5)
-* Conjugate gradient, continued.
-
-## Lecture 14 (May 7)
+## Lecture 15 (May 5)
 * Other iterative algorithms: Overview
 
-## Lecture 15 (May 9)
+## Lecture 16 (May 7)
 * Randomized linear algebra: the randomized SVD and low-rank approximation
 
-## Lecture 16 (May 12)
+## Lecture 17 (May 9)
 * Differentiating linear algebra solutions: Adjoint methods
+
+## Lecture 18 (May 12)
 * final projects due
