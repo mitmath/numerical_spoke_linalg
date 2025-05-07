@@ -197,20 +197,33 @@ However, showed with a numerical example (see [notebook](https://www.dropbox.com
 **Further reading:** Strang *Linear Algebra and Learning from Data* section VI.4; 18.065 [OCW lecture 21: Minimizing a Function Step by Step](https://ocw.mit.edu/courses/18-065-matrix-methods-in-data-analysis-signal-processing-and-machine-learning-spring-2018/resources/lecture-21-minimizing-a-function-step-by-step/) and [OCW lecture 22: Gradient Descent — Downhill to a Minimum](https://ocw.mit.edu/courses/18-065-matrix-methods-in-data-analysis-signal-processing-and-machine-learning-spring-2018/resources/lecture-22-gradient-descent-downhill-to-a-minimum/).   See also the useful notes, [An introduction to the conjugate gradient method without the agonizing pain](http://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf) by J. R. Shewchuk.
 
 ## Lecture 13 (April 30)
-Convergence of gradient descent.  Conjugate gradients.
+* [Handwritten notes](https://www.dropbox.com/scl/fi/pxea51ooxryw2fo4t3rt6/Large-scale-Linalg-Spring-2025.pdf?rlkey=kbekxxgyp8xovp55nnsvrrxds&st=k76yqpnw&dl=0)
 
-## Lecture 14 (May 2)
-* Conjugate gradient, continued.
-* pset 4 due, solutions
+The conjugate-gradient algorithm (CG) and an outline of its derivation.  Connection to polynomial minimization.
+
+**Further reading:** See readings for lecture 12.  See also Trefethen and Bau, lecture 38 on CG.
+
+## Lecture 14 (May 2) — CANCELLED
 
 ## Lecture 15 (May 5)
-* Other iterative algorithms: Overview
+* [Handwritten notes](https://www.dropbox.com/scl/fi/pxea51ooxryw2fo4t3rt6/Large-scale-Linalg-Spring-2025.pdf?rlkey=kbekxxgyp8xovp55nnsvrrxds&st=k76yqpnw&dl=0)
+
+Preconditioned conjugate gradient (PCG).  Connections to more general nonlinear optimization:
+* **Gradient descent** $x_{k+1} = x_k - \alpha \nabla f$ and methods built off of are common in optimization, but in general we don't have an exact formula for the stepsize α and there are various ways to estimate it.
+* **Momentum terms**: $x_{k+1} = x_k - \alpha (\nabla f + \beta (x_k - x_{k-1}))$ include some fraction $\beta$ of the previous step direction $x_k - x_{k-1}$ in the current search direction.  There are various strategies here to choose $\beta$, from [nonlinear CG](https://en.wikipedia.org/wiki/Nonlinear_conjugate_gradient_method) to *Nesterov accelerated gradient* to the popular [Adam](https://arxiv.org/abs/1412.6980) algorithm.
+* [**Quasi-Newton algorithms**](http://en.wikipedia.org/wiki/Quasi-Newton_methods).  Preconditioning $M$ replaces $\nabla f$ with $M \nabla f$ where $M$ is approximate inverse.  The general analogue of our matrix $A$ is the **Hessian matrix** of second derivatives (the Jacobian of the gradient).  If we use the exact Hessian inverse, we have exactly a Newton step for $\nabla f = 0$, but this is expensive in high dimensions.  But using some *approximate* inverse Hessian gives us a "quasi-Newton" method, the most popular of which is the [L-BFGS](https://en.wikipedia.org/wiki/Limited-memory_BFGS) algorithm.
+
+Also commented on two generalizations of CG to non-symmetric $Ax = b$ problems:
+* CG squared: solve $A^T A x = A^T b$ with CG.  This squares the condition number and has slow convergence.
+* Biconjugate gradient (BiCG), which can be interpreted as expanding the problem to a larger one using $B = \begin{pmatrix} 0I & A \\ A^T & 0I \end{pmatrix}$.  This is symmetric, so the conjugate-directions Krylov trick works, but is indefinite: you are no longer *minimizing* something, and it can suffer from "breakdown" where convergence halts.  Improved versions are [BiCGSTAB](https://en.wikipedia.org/wiki/Biconjugate_gradient_stabilized_method) ("stabilized", ℓ=1), BiCGSTAB2 (ℓ=2), and [BiCGSTAB(ℓ)](https://emis.dsd.sztaki.hu/journals/ETNA/vol.1.1993/pp11-32.dir/pp11-32.pdf) which generalizes the previous two.  Like restarted GMRES with longer restart times, using a larger ℓ trades off increased memory and cost for improved convergence.
+
+**Further reading**: There is a close connection between the conjugate directions of conjugate gradient and the "momentum" terms of stochastic gradient-descent methods; see e.g. [Bhaya (2004)](https://www.sciencedirect.com/science/article/abs/pii/S0893608003001709).  A very nice overview of iterative methods for non-Hermitian problems, including BiCG can be found in these 2002 [Lecture Notes on Iterative Methods](http://www.math.uu.nl/people/vorst/lecture.html) by Henk van der Vorst (second section, starting with GMRES).  Helpful derivations of many of the properties of BFGS updates, and many references, can be found in [this 1980 technical report by Dennis and Schnabel](http://www.cs.colorado.edu/department/publications/reports/docs/CU-CS-185-80.pdf) and for a generalization in [this 1994 paper by O'Leary and Yeremin](http://www.cs.umd.edu/~oleary/reprints/j39.pdf), for example; see also these [notes on Quasi-Newton and BFGS methods](https://github.com/mitmath/18335/blob/spring21/notes/BFGS.pdf) from 18.335.  See also our [18.063 Matrix Calculus course notes](https://arxiv.org/abs/2501.14787), chapter 12, on Hessian matrices.
 
 ## Lecture 16 (May 7)
-* Randomized linear algebra: the randomized SVD and low-rank approximation
+* Differentiating linear algebra solutions: Adjoint methods
 
 ## Lecture 17 (May 9)
-* Differentiating linear algebra solutions: Adjoint methods
+* Randomized linear algebra: the randomized SVD and low-rank approximation
 
 ## Lecture 18 (May 12)
 * final projects due
