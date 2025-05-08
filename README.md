@@ -218,11 +218,13 @@ Also commented on two generalizations of CG to non-symmetric $Ax = b$ problems:
 
 **Further reading**: There is a close connection between the conjugate directions of conjugate gradient and the "momentum" terms of stochastic gradient-descent methods; see e.g. [Bhaya (2004)](https://www.sciencedirect.com/science/article/abs/pii/S0893608003001709).  A very nice overview of iterative methods for non-Hermitian problems, including BiCG can be found in these 2002 [Lecture Notes on Iterative Methods](http://www.math.uu.nl/people/vorst/lecture.html) by Henk van der Vorst (second section, starting with GMRES).  Helpful derivations of many of the properties of BFGS updates, and many references, can be found in [this 1980 technical report by Dennis and Schnabel](http://www.cs.colorado.edu/department/publications/reports/docs/CU-CS-185-80.pdf) and for a generalization in [this 1994 paper by O'Leary and Yeremin](http://www.cs.umd.edu/~oleary/reprints/j39.pdf), for example; see also these [notes on Quasi-Newton and BFGS methods](https://github.com/mitmath/18335/blob/spring21/notes/BFGS.pdf) from 18.335.  See also our [18.063 Matrix Calculus course notes](https://arxiv.org/abs/2501.14787), chapter 12, on Hessian matrices.
 
-## Lecture 16 (May 7)
-* Differentiating linear algebra solutions: Adjoint methods
-
 ## Lecture 17 (May 9)
-* Randomized linear algebra: the randomized SVD and low-rank approximation
+* Differentiating linear algebra solutions: Adjoint methods
+* [Handwritten notes](https://www.dropbox.com/scl/fi/pxea51ooxryw2fo4t3rt6/Large-scale-Linalg-Spring-2025.pdf?rlkey=kbekxxgyp8xovp55nnsvrrxds&st=k76yqpnw&dl=0)
+* slides on adjoint-method differentiation from 18.063: [slides](https://docs.google.com/presentation/d/1U1lB5bhscjbxEuH5FcFwMl5xbHl0qIEkMf5rm0MO8uE/edit?usp=sharing)
+
+**Further reading on adjoint methods** See also our [18.063 Matrix Calculus course notes](https://arxiv.org/abs/2501.14787), section 6.3. A useful review of topology-optimization methods in engineering (where "every pixel/voxel" of a structure is a degree of freedom) can be found in [Sigmund and Maute (2013)](https://link.springer.com/article/10.1007/s00158-013-0978-6).  See the [notes on adjoint methods](https://github.com/mitmath/18335/blob/spring21/notes/adjoint/adjoint.pdf) and [slides](https://github.com/mitmath/18335/blob/spring21/notes/adjoint/adjoint-intro.pdf) from 18.335 ([video](https://mit.zoom.us/rec/share/xLxMyhBSoIhSFxce5lHb1ubItby5BKFs6mgJJ7kMmjotETmaYm4YA22TA8w8n13i.6sTEFrkkloG7LFeR?startTime=1619463273000)).
 
 ## Lecture 18 (May 12)
 * final projects due
+* Randomized linear algebra: the randomized SVD and low-rank approximation
