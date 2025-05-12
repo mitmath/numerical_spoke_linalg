@@ -168,7 +168,7 @@ One useful trick that we needed was based on a property of induced norms.  Recal
 
 ## Lecture 11 (April 25)
 * [Handwritten notes](https://www.dropbox.com/scl/fi/pxea51ooxryw2fo4t3rt6/Large-scale-Linalg-Spring-2025.pdf?rlkey=kbekxxgyp8xovp55nnsvrrxds&st=k76yqpnw&dl=0)
-* pset 3 due tomorrow, solutions coming soon
+* pset 3 due tomorrow.  [pset 3 solutions](psets/pset3sol.ipynb)
 
 Continued discussion of polynomial viewpoint on GMRES and Arnoldi convergence, from last lecture.  Some key points:
 * GMRES works best of the eigenvalues are mostly in a cluster, similar to the identity matrix.   Preconditioning tries to improve this.
