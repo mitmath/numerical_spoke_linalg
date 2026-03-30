@@ -12,7 +12,7 @@ Taking both the hub and any spoke will count as an 18.3xx class for math majors,
 
 **Grading** (all assignments **submitted electronically** via [Gradescope on Canvas](https://canvas.mit.edu/courses/36179)):
 * 30% **4 weekly psets:** due Wednesdays at midnight: April 8, 15, 22, and 29, 10% **pset check-ins** (oral check-ins on selected psets where they have to explain their work; pass/fail per problem).
-* 30% **final project**: due May 12 (last day of class). The final project will be an 8–15 page paper reviewing, implementing, and testing some interesting numerical linear-algebra algorithm not covered in the course.  A 1-page *proposal* will be due April 18.  See [final-project/proposal information](psets/proposal.md).  20% **final project presentation** in-class (last week).
+* 30% **final project**: due May 12 (last day of class). The final project will be an 8–15 page paper reviewing, implementing, and testing some interesting numerical linear-algebra algorithm not covered in the course.  A 1-page *proposal* will be due April 17 (but you are encouraged to submit earlier).  See [final-project/proposal information](psets/proposal.md).  20% **final project presentation** in-class (last week).
 * 10% **attendance**
 
 **Collaboration policy:** Talk to anyone you want to and read anything you want to, with two caveats: First, make a solid effort to solve a problem on your own before discussing it with classmates or googling. Second, no matter whom you talk to or what you read, write up the solution on your own, without having their answer in front of you (this includes ChatGPT and similar). (You can use [psetpartners.mit.edu](https://psetpartners.mit.edu/) to find problem-set partners.)
