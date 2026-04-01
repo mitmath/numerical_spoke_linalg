@@ -46,3 +46,9 @@ Showed how a sparse matrix, in fact a symmetric [tridiagonal matrix](https://en.
 How can we generalize this to other sparsity patterns and other types of large-scale matrix structures?
 
 **Further reading**: FNC book [section 8.1: sparsity and structure](https://fncbook.com/structure-1).  The example of discretizing a 1d Poisson equation with finite differences, resulting in a tridiagonal matrix, is discussed in many sources, e.g. [these UTexas course notes](https://farside.ph.utexas.edu/teaching/329/lectures/node62.html).
+
+## Lecture 2 (April 1)
+
+* Sparse matrices and data structures
+* [sparse-matrix slides from 18.335 (Fall 2006)](https://github.com/mitmath/18335/blob/spring21/notes/lec21handout6pp.pdf)
+* [Julia notebook on dense and sparse matrices](https://nbviewer.org/github/mitmath/1806/blob/fall22/notes/Dense-and-Sparse.ipynb) from 18.06 (Fall 2022)
