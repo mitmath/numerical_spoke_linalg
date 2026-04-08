@@ -77,7 +77,7 @@ Deflation is a terrible scheme if you want the *smallest* magnitude eigenvalue, 
 
 ## Lecture 4 (April 6)
 
-* [Handwritten notes](https://www.dropbox.com/scl/fi/pxea51ooxryw2fo4t3rt6/Large-scale-Linalg-Spring-2025.pdf?rlkey=kbekxxgyp8xovp55nnsvrrxds&st=k76yqpnw&dl=0) from spring 2025
+* [Handwritten notes](https://www.dropbox.com/scl/fi/pxea51ooxryw2fo4t3rt6/Large-scale-Linalg-Spring-2025.pdf?rlkey=kbekxxgyp8xovp55nnsvrrxds&st=k76yqpnw&dl=0) from spring 2025, page 29+
 
 If you want to find the smallest |λ| instead of the biggest, you can simply apply the power method to $A^{-1}$: on each step, compute $y = A^{-1} x$, i.e. solve $Ay = x$.  This is called [(unshifted) inverse iteration](https://en.wikipedia.org/wiki/Inverse_iteration).   It relies on a fast way to solve $Ay = x$; for example, if $A$ is sparse, you can compute the sparse LU factorization and re-use it on each step with a sparse-direct solve.   In general, we will see that solution methods for eigenproblems and linear systems are often closely related!
 
@@ -93,6 +93,7 @@ The big problem with Rayleigh-quotient iteration, like Newton's method, is the n
 **Further reading:** FNC book [section 8.3: inverse iteration](https://fncbook.com/inviter); however, beware that the book currently shows a less accurate (for real-symmetric/Hermitian A) method to estimate eigenvalues (issue [fnc#16](https://github.com/fncbook/fnc/issues/16)).  [Trefethen & Bau, lecture 27](https://www.cs.cmu.edu/afs/cs/academic/class/15859n-f16/Handouts/TrefethenBau/RayleighQuotient-27.pdf) covers these algorithms in much more depth.  [These slides by Per Persson (2006)](https://github.com/mitmath/18335/blob/spring21/notes/lec15handout6pp.pdf) are a useful summary.
 
 ## Lecture 5 (April 8)
+* [Handwritten notes](https://www.dropbox.com/scl/fi/pxea51ooxryw2fo4t3rt6/Large-scale-Linalg-Spring-2025.pdf?rlkey=kbekxxgyp8xovp55nnsvrrxds&st=k76yqpnw&dl=0) from spring 2025, page 35+
 * pset 1 solutions: coming soon
 * pset 2: coming soon, due April 15
 
