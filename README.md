@@ -83,7 +83,6 @@ If you want to find the smallest |λ| instead of the biggest, you can simply app
 
 Proved that, for a real-symmetric (Hermitian) matrix A=Aᵀ, the [Rayleigh quotient R(x)=xᵀAx/xᵀx](https://en.wikipedia.org/wiki/Rayleigh_quotient) is bounded above and below by the largest and smallest eigenvalues of A (the ["min–max theorem"](https://en.wikipedia.org/wiki/Min-max_theorem)).   This theorem is useful for lots of things in linear algebra.  Here, it helps us understand why the Rayleigh quotient is so accurate: the power method converges to a maximum-|λ| eigenvalue, which is either the smallest (most negative) or the largest (most positive) λ of a real-symmetric A, and hence that λ is an *extremum* (minimum or maximum) of the Rayleigh quotient where its gradient is zero.  In fact, you can show that ∇R=0 for *any* eigenvector (not necessarily min/max λ).   This means, if we Taylor expand R(x+δx) around an eigenvector x where R(x)=λ, you get R(x+δx)=λ+O(‖δx‖^2): the error in the eigenvalue λ goes as the *square* of the error in the eigenvector (for real-symmetric A).
 
-To find *other* eigenvectors and eigenvalues of a Hermitian problem, one possibility is an algorithm called **deflation**. It exploits the fact that for real-symmetric $A$, the eigenvectors $q_1, q_2, \ldots$ for distinct $\lambda$ are orthogonal.   So, once we have found $q_1$, we can repeat the power method but **project each step to be orthogonal** to the previously found eigenvector, i.e. replace $x \longleftarrow x - q_1 (q_1^T x)$.  This will then converge to $q_2$ (for the second-biggest $|\lambda|$).  To get $q_3$, repeat the power method but project orthogonal to both $q_1, q_2$ with $x \longleftarrow x - q_1 (q_1^T x) - q_2 (q_2^T x)$, etcetera.
 
 Above, we considered inverse iteration.  A more general idea is **shifted inverse iteration**: at each step, compute $(A - \mu I)^{-1}$ times the previous step, for some shift $\mu$.   This converges to an eigenvector of the λ **closest to μ**.   If μ is very close to an eigenvalue, it converges extremely quickly.   Not only does this allow you to search for eigenvalues anywhere in the spectrum that you want, but it also gives you a way to accelerate iteration if you have a good guess for λ.
 
@@ -92,3 +91,22 @@ But where would you get a good guess for λ?  A simple answer is to use the Rayl
 The big problem with Rayleigh-quotient iteration, like Newton's method, is the need for a good initial guess — if you have a bad initial guess, it can be quite unpredictable what eigenvalue it converges to!   But any time you can obtain a rough idea of where the desired eigenvalue is, it means you can zoom into the exact value extremely quickly.
 
 **Further reading:** FNC book [section 8.3: inverse iteration](https://fncbook.com/inviter); however, beware that the book currently shows a less accurate (for real-symmetric/Hermitian A) method to estimate eigenvalues (issue [fnc#16](https://github.com/fncbook/fnc/issues/16)).  [Trefethen & Bau, lecture 27](https://www.cs.cmu.edu/afs/cs/academic/class/15859n-f16/Handouts/TrefethenBau/RayleighQuotient-27.pdf) covers these algorithms in much more depth.  [These slides by Per Persson (2006)](https://github.com/mitmath/18335/blob/spring21/notes/lec15handout6pp.pdf) are a useful summary.
+
+## Lecture 5 (April 8)
+* pset 1 solutions: coming soon
+* pset 2: coming soon, due April 15
+
+To find *other* eigenvectors and eigenvalues of a Hermitian problem, one possibility is an algorithm called **deflation**. It exploits the fact that for real-symmetric $A$, the eigenvectors $q_1, q_2, \ldots$ for distinct $\lambda$ are orthogonal.   So, once we have found $q_1$, we can repeat the power method but **project each step to be orthogonal** to the previously found eigenvector, i.e. replace $x \longleftarrow x - q_1 (q_1^T x)$.  This will then converge to $q_2$ (for the second-biggest $|\lambda|$).  To get $q_3$, repeat the power method but project orthogonal to both $q_1, q_2$ with $x \longleftarrow x - q_1 (q_1^T x) - q_2 (q_2^T x)$, etcetera.
+
+Introduced Krylov subspaces, and the idea of **Krylov subspace** methods: ideally, we want to find the "best" solution in the *whole subspace* 𝒦ₙ spanned by {x₀,Ax₀,...,Aⁿ⁻¹x₀}, which is the *only* subspace you can get starting from x₀ if you are only allowed linear operations and matrix–vector products.
+
+The **Arnoldi** algorithm is a Krylov algorithm for eigenproblems.  It basically has two components:
+
+1. Find an orthonormal basis Qₙ for 𝒦ₙ.   Essentially, we will to this by a form of Gram–Schmidt, to be determined.
+2. Given the basis, give the "best" estimate in 𝒦ₙ for one or more eigenvectors and eigenvalues.
+
+Discussed what it means to find the "best" solution in the Krylov subspace 𝒦ₙ. Discussed the general principle of Rayleigh–Ritz methods for approximately solving the eigenproblem in a subspace: finding the Ritz vectors/values (= eigenvector/value approximations) with a residual perpendicular to the subspace (a special case of a Galerkin method).
+
+For Hermitian matrices A, I showed that the max/min Ritz values are the maximum/minimum of the Rayleigh quotient in the subspace, via the min–max theorem.  In this sense, at least for Hermitian matrices, the Ritz vectors are *optimal* in the sense of maximizing (or minimizing) the Rayleigh quotient in the Krylov space.  Another sense in which they are optimal for Hermitian A is that the Ritz vectors/values minimize ‖AV-VD‖₂ over all possible orthonormal bases V of the Krylov space and all possible diagonal matrices D (see the Bai notes below for a proof).   (Later, we will discuss an "optimal polynomial" interpretation of Arnoldi+Rayleigh–Ritz from Trefethen lecture 34.)
+
+**Further reading:** FNC book, [section 8.4 on Krylov subspaces and Arnoldi](https://fncbook.com/subspace). Trefethen lecture 33 on Arnoldi. [This 2009 course](https://web.cs.ucdavis.edu/~bai/Winter09/) on numerical linear algebra by Zhaojun Bai has [useful notes](https://web.cs.ucdavis.edu/~bai/Winter09/krylov.pdf) on Krylov methods, including a discussion of the Rayleigh–Ritz procedure.
