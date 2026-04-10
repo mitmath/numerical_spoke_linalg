@@ -95,7 +95,7 @@ The big problem with Rayleigh-quotient iteration, like Newton's method, is the n
 ## Lecture 5 (April 8)
 * [Handwritten notes](https://www.dropbox.com/scl/fi/pxea51ooxryw2fo4t3rt6/Large-scale-Linalg-Spring-2025.pdf?rlkey=kbekxxgyp8xovp55nnsvrrxds&st=k76yqpnw&dl=0) from spring 2025, page 35+
 * pset 1 solutions: coming soon
-* pset 2: coming soon, due April 15
+* [pset 2](psets/pset2.ipynb): due April 15
 
 To find *other* eigenvectors and eigenvalues of a Hermitian problem, one possibility is an algorithm called **deflation**. It exploits the fact that for real-symmetric $A$, the eigenvectors $q_1, q_2, \ldots$ for distinct $\lambda$ are orthogonal.   So, once we have found $q_1$, we can repeat the power method but **project each step to be orthogonal** to the previously found eigenvector, i.e. replace $x \longleftarrow x - q_1 (q_1^T x)$.  This will then converge to $q_2$ (for the second-biggest $|\lambda|$).  To get $q_3$, repeat the power method but project orthogonal to both $q_1, q_2$ with $x \longleftarrow x - q_1 (q_1^T x) - q_2 (q_2^T x)$, etcetera.
 
