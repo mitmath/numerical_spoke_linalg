@@ -137,7 +137,6 @@ A solution to the loss of orthogonality in Lanczos and the growing computational
 ## Lecture 8 (April 15)
 
 * [pset 2 solutions](psets/pset2sol.ipynb)
-* pset 3: coming soon
 
 There are many other eigensolver algorithms besides Arnoldi; the choice of algorithm depends strongly on the properties of the matrix and the desired eigenvalue.  For Hermitian/real-symmetric problems, a powerful algorithm is [LOBPCG](https://en.wikipedia.org/wiki/LOBPCG), a specialized algorithm for minimizing or maximizing the Rayleigh quotient.  There are also a remarkable class of algorithms based on the [residue theorem](https://en.wikipedia.org/wiki/Residue_theorem) of complex analysis, which allow you to efficiently extract all eigenvalues within in a specified region of the complex plane; a prominent version of this is [FEAST](https://www.feast-solver.org/references.htm).
 
@@ -150,6 +149,8 @@ Discussed a simplified version of the LOBPCG in detail.  The basic idea is that 
 To go from LOCG to LOBPCG, you need to incorporate two additional tricks.  One is [preconditioning](https://en.wikipedia.org/wiki/Preconditioner), which we will discuss soon.   The other is a "block" version of the Rayleigh quotient which allows you to search for the $k$ smallest (or largest) eigenvalues at once, replacing $x$ with an $m \times k$ matrix $X$.  (Alternatively, you could search for one eigenvalue at a time and use deflation.)
 
 ## Lecture 9 (April 17)
+
+* [pset 3](psets/pset3.ipynb)
 
 Introduced the [**GMRES**](https://en.wikipedia.org/wiki/Generalized_minimal_residual_method) algorithm: compute the basis Qₙ for 𝒦ₙ as in Arnoldi, but then minimize the residual ‖Ax-b‖₂ for x∈𝒦ₙ using this basis.  This yields a small (n+1)×n least-squares problem involving Hₙ.
 
