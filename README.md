@@ -164,3 +164,21 @@ To get a more precise understanding of how GMRES (and other Krylov methods) conv
 
 
 **Further reading (preconditioning):**  [FNC section 8.8](https://fncbook.com/precond) on preconditioning and Trefethen, lecture 40.  [Templates for the Solution of Linear Systems](http://www.netlib.org/linalg/html_templates/Templates.html), chapter on [preconditioners](http://www.netlib.org/linalg/html_templates/node51.html), and e.g. _[Matrix Preconditioning Techniques and Applications](http://books.google.com?id=d9UdanCqJ1QC)_ by Ke Chen (Cambridge Univ. Press, 2005).
+
+
+## Lecture 10 (April 12)
+
+* pset 3 solutions: coming soon
+* pset 4: coming soon
+
+To get a more precise understanding of how GMRES (and other Krylov methods) converge, started transforming it to a problem of "polynomial fitting" — it turns out that the error after $n$ steps of GMRES is closely related to the error in "fitting" a degree-$n$ polynomial (with p(0)=1) to the eigenvalues, favoring clustered eigenvalues.
+
+One useful trick that we needed was based on a property of induced norms.  Recall that the induced norm $\Vert A \Vert$ of a matrix $A$ is defined as the maximum possible value of $\Vert A x \Vert / \Vert x \Vert$ (and equals the largest singular value of $A$ in the L2/Euclidean norm).   From this, it immediately follows that $\Vert ABx \Vert \le \Vert A \Vert \cdot \Vert B \Vert \cdot \Vert b \Vert$.   In the GMRES analysis, this allowed us to separate out terms in the diagonalization of $A$.
+
+Some key points:
+* GMRES works best if the matrix is well-conditioned and the eigenvalues are mostly in a few tight clusters, similar to the identity matrix.   Preconditioning tries to improve this.
+* Because of the p(0)=1 constraint of the GMRES polynomial, convergence of GMRES for $A$ is *not* the same as for a shifted matrix $A + \mu I$.  In particular, as the matrix becomes more ill-conditioned, i.e. one eigenvalue gets close to zero relative to the biggest λ, GMRES convergence slows.
+* Arnoldi's analysis is similar (see Trefethen), but its polynomial $p(z)$ has the n-th coefficient equal to 1, rather than the 0-th coefficient.  This makes (unrestarted) Arnoldi *shift-invariant*: it converges equally well for $A$ and $A + \mu I$.
+* In Arnoldi, the Ritz values (eigenvalue estimates) are precisely the roots of the optimal polynomial $p(z)$.  This means that Arnoldi works best if the desired eigenvalues are **extremal** (on the edges of the spectrum, e.g. the most positive or most negative real or imaginary parts, or biggest magnitudes) and are **not** clustered with many undesired eigenvalues.    Shift-and-invert $(A - \mu I)^{-1}$ is a way of "exploding" clusters near $\mu$, and for transforming the interior of the spectrum near $\mu$ to the edges of the spectrum.
+
+**Further reading (GMRES, Arnoldi, and polynomials):** Trefethen, lectures 34, 35, 40.   There are also eigenvalue algorithms that can exploit preconditioning if supplied, e.g. the [Jacobi–Davidson algorithm](https://doi.org/10.1002/gamm.201490038) or the LOBPCG algorithm mentioned earlier.  You can construct the Arnoldi polynomial explicitly from its roots, the Ritz values; the analogous construction of the GMRES polynomial uses "harmonic" Ritz values, as explained in e.g. [Goossens and Roose (1999)](https://doi.org/10.1002/(SICI)1099-1506(199906)6:4%3C281::AID-NLA158%3E3.0.CO;2-B).
