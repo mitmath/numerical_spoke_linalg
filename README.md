@@ -168,7 +168,7 @@ To get a more precise understanding of how GMRES (and other Krylov methods) conv
 
 ## Lecture 10 (April 12)
 
-* pset 3 solutions: coming soon
+* [pset 3 solutions](psets/pset3sol.ipynb)
 * pset 4: coming soon
 
 To get a more precise understanding of how GMRES (and other Krylov methods) converge, started transforming it to a problem of "polynomial fitting" — it turns out that the error after $n$ steps of GMRES is closely related to the error in "fitting" a degree-$n$ polynomial (with p(0)=1) to the eigenvalues, favoring clustered eigenvalues.
