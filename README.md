@@ -184,7 +184,7 @@ Some key points:
 
 
 ## Lecture 11 (April 24)
-* [Handwritten notes](https://www.dropbox.com/scl/fi/pxea51ooxryw2fo4t3rt6/Large-scale-Linalg-Spring-2025.pdf?rlkey=kbekxxgyp8xovp55nnsvrrxds&st=k76yqpnw&dl=0)
+* [Handwritten notes](https://www.dropbox.com/scl/fi/pxea51ooxryw2fo4t3rt6/Large-scale-Linalg-Spring-2025.pdf?rlkey=kbekxxgyp8xovp55nnsvrrxds&st=k76yqpnw&dl=0), page 70+
 * [Julia notebook on gradient descent for quadratic functions](https://nbviewer.org/github/mitmath/18065/blob/main/notes/Quadratic-Gradient-Descent.ipynb)
 * [pset 4](psets/pset4.ipynb): due Wednesday April 29 at midnight
 
