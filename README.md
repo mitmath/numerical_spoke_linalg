@@ -186,7 +186,7 @@ Some key points:
 ## Lecture 11 (April 24)
 * [Handwritten notes](https://www.dropbox.com/scl/fi/pxea51ooxryw2fo4t3rt6/Large-scale-Linalg-Spring-2025.pdf?rlkey=kbekxxgyp8xovp55nnsvrrxds&st=k76yqpnw&dl=0)
 * [Julia notebook on gradient descent for quadratic functions](https://nbviewer.org/github/mitmath/18065/blob/main/notes/Quadratic-Gradient-Descent.ipynb)
-* pset 4: coming soon
+* [pset 4](psets/pset4.ipynb): due Wednesday April 29 at midnight
 
 Introduced the problem of minimizing **convex quadratic** functions $f(x) = \frac{1}{2} x^T A x - b^T x$ where $A = A^T$ is [symmetric positive definite (SPD)](https://en.wikipedia.org/wiki/Definite_matrix); this is also known as unconstrained [quadratic programming](https://en.wikipedia.org/wiki/Quadratic_programming).  Such a "bowl"-shaped function has a single minimum.  By taking the gradient, we find that the "downhill" direction is $-\nabla f = b - Ax = r$, where $r$ is the **residual**, immediately telling us that the solution is the $x$ solving $Ax=b$.  That is, minimizing a convex quadratic is equivalent to solving SPD systems.  This means that **optimization algorithms can be used to solve SPD Ax=b**, and conversely that better ways of solving SPD systems give us better ways to do quadratic optimization.  This is important because:
 
