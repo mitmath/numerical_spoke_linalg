@@ -202,3 +202,11 @@ However, for the specific case of a quadratic $f$ we can solve for an "optimal" 
 However, sketched a numerical example (see [notebook](https://www.dropbox.com/scl/fi/pxea51ooxryw2fo4t3rt6/Large-scale-Linalg-Spring-2025.pdf?rlkey=kbekxxgyp8xovp55nnsvrrxds&st=k76yqpnw&dl=0)) that **gradient descent tends to "zig-zag"**, often converging rather slowly.  The basic problem is if $A$ has some eigenvalues much large than others, the function $f(x)$ looks like a long valley with steep walls, and the downhill direction points mostly perpendicular to the steep walls, rather than *along* the valley towards the optimum.  We want to improve this by deriving a Krylov-subspace method that minimizes f(x) over all previous search directions simultaneously.
 
 **Further reading:** Strang *Linear Algebra and Learning from Data* section VI.4; 18.065 [OCW lecture 21: Minimizing a Function Step by Step](https://ocw.mit.edu/courses/18-065-matrix-methods-in-data-analysis-signal-processing-and-machine-learning-spring-2018/resources/lecture-21-minimizing-a-function-step-by-step/) and [OCW lecture 22: Gradient Descent — Downhill to a Minimum](https://ocw.mit.edu/courses/18-065-matrix-methods-in-data-analysis-signal-processing-and-machine-learning-spring-2018/resources/lecture-22-gradient-descent-downhill-to-a-minimum/).   See also the useful notes, [An introduction to the conjugate gradient method without the agonizing pain](http://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf) by J. R. Shewchuk.
+
+## Lecture 12 (April 27)
+* Handwritten notes (see previous lecture)
+* [Julia notebook on gradient descent for quadratic functions](https://github.com/mitmath/18065/blob/main/notes/Quadratic-Gradient-Descent.ipynb)
+
+The [conjugate-gradient algorithm (CG)](https://en.wikipedia.org/wiki/Conjugate_gradient_method) and an outline of its derivation.  Connection to polynomial minimization.
+
+**Further reading:** See readings for lecture 11.  See also Trefethen and Bau, lecture 38 on CG.
