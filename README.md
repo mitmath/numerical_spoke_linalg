@@ -221,3 +221,23 @@ Preconditioned conjugate gradient (PCG).  Connections to more general nonlinear 
 * [**Quasi-Newton algorithms**](http://en.wikipedia.org/wiki/Quasi-Newton_methods).  Preconditioning $M$ replaces $\nabla f$ with $M \nabla f$ where $M$ is approximate inverse.  The general analogue of our matrix $A$ is the **Hessian matrix** of second derivatives (the Jacobian of the gradient).  If we use the exact Hessian inverse, we have exactly a Newton step for $\nabla f = 0$, but this is expensive in high dimensions.  But using some *approximate* inverse Hessian gives us a "quasi-Newton" method, the most popular of which is the [L-BFGS](https://en.wikipedia.org/wiki/Limited-memory_BFGS) algorithm.
 
 **Further reading**: There are many variants of nonlinear conjugate-gradient, mainly to avoid bad behavior far from the minimum, as surveyed by Hager and Zhang, “[A Survey of Nonlinear Conjugate Gradient Methods](http://people.cs.vt.edu/~asandu/Public/Qual2011/Optim/Hager_2006_CG-survey.pdf),” *Pacific J. Optim.* 2, pp. 35-58 (2006).  There is a close connection between the conjugate directions of conjugate gradient and the "momentum" terms of stochastic gradient-descent methods; see e.g. [Bhaya (2004)](https://www.sciencedirect.com/science/article/abs/pii/S0893608003001709).  A very nice overview of iterative methods for non-Hermitian problems, including BiCG can be found in these 2002 [Lecture Notes on Iterative Methods](http://www.math.uu.nl/people/vorst/lecture.html) by Henk van der Vorst (second section, starting with GMRES).  Helpful derivations of many of the properties of BFGS updates, and many references, can be found in [this 1980 technical report by Dennis and Schnabel](http://www.cs.colorado.edu/department/publications/reports/docs/CU-CS-185-80.pdf) and for a generalization in [this 1994 paper by O'Leary and Yeremin](http://www.cs.umd.edu/~oleary/reprints/j39.pdf), for example; see also these [notes on Quasi-Newton and BFGS methods](https://github.com/mitmath/18335/blob/spring21/notes/BFGS.pdf) from 18.335.  See also our [18.063 Matrix Calculus course notes](https://arxiv.org/abs/2501.14787), chapter 12, on Hessian matrices.
+
+## Lecture 14 (May 1)
+
+
+## Lecture 15 (May 4)
+
+
+## Lecture 16 (May 6)
+
+
+## Lecture 17 (May 8)
+
+
+## Final-project Presentations (May 11)
+
+You should plan on a 15-minute presentation (not including questions) that covers the highlights: what problem does the algorithm solve, what is the basic idea behind it (no time for lots of derivations!), where/when did it come from, what are the main pros/cons compared to other algorithms for that problem, a few words about your implementation, validation results (is it giving the correct answer?  is it comparable e.g. in convergence rate to library implementations of the same algorithm?), and comparison results (e.g. to another algorithm and/or different test problems).   This is a lot to touch on in 15 minutes, so plan your slides carefully!
+
+We'll fit 2–3 of you into the scheduled class time, and the "overflow" will go to my office to finish in the following hour (since most of you are free from 11–12).
+
+Your presentation will be graded on a 5-point scale based on how clearly you cover the topics listed above (the problem, the basic idea, the background, the pros/cons, how you implemented and validated, and illuminating comparisons/tests). Aim the presentation at an audience of your peers in the class (assume they know the material we covered in 18.C21 and 18.C21B).
