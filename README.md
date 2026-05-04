@@ -236,6 +236,16 @@ Began discussing [nonlinear least squares](https://en.wikipedia.org/wiki/Non-lin
 
 ## Lecture 15 (May 4)
 
+Reformulated nonlinear least squares as minimizing $\Vert f(p) \Vert_2^2 where $f$ maps $p \in \mathbb{R}^n$ (the fit parameters) to $f(p) \in \mathbb{R}^m$ (the data points), e.g. $f_i(p) = \text{model}(x_i, p) - y_i$ for some fit model and some data points $(x_i, y_i)$.  The Gauss–Newton step is then $f'^T f' \delta = -f'^T f$, derived from the "linearized" least-square objective $\Vert f(p) + f'(p) \delta \Vert_2^2$ as in last lecture.
+
+Explained Levenberg–Marquardt as a ["Tikhohov" or "ridge" regularization](https://en.wikipedia.org/wiki/Ridge_regression) $\Vert f(p) + f'(p) \delta \Vert_2^2 + \lambda \Vert R \delta \Vert_2^2$ for some hyperparameter $\lambda > 0$ and some regularization matrix $R$.   This has the effect of limiting the step size $\delta$ when $f'$ is ill-conditioned.   Typically, one chooses $R$ to be a diagonal regularization, e.g. $R = \Vert f' \Vert_F^2 I$ or $R = \text{Diagonal}(f'^T f')$ (the latter having the benefit of incorporating a different scaling per $p_k$, useful when different parameters have unrelated units).   There are various schemes for updating $\lambda$ adaptively as the algorithm progresses, by monitoring the decrease of $\Vert f \Vert_2^2$ compared to that of the approximation $\Vert f(p) + f'(p) \delta \Vert_2^2$.
+
+More generally, discussed some of the methods for solving the regularized least-square problem $\min_x \left(\Vert b - Ax \Vert_2^2 + \lambda \Vert R x \Vert_2^2\right)$.   One option is to use the normal equations $(A^T A + \lambda R^T R)x = A^T b$ directly, and the usual concerns about squaring the condition number $\kappa(A)$ are allayed if the regularization is "doing its job" and making the problem well-conditioned.   Alternatively, one can transform it to an equivalent problem of minimizing $\Vert \begin{pmatrix} b // 0 \end{pmatrix} - \begin{pmatrix} A // \sqrt{\lambda} R \end{pmatrix} x \Vert_2$ and use QR etcetera, and there are even fancy "Givens-QR" algorithms that exploit the sparsity if $R$ is diagonal (but may not be worth it if $n \ll m$).
+
+**Further reading (nonlinear least squares)**: See the further reading from the previous lecture.  Several little tricks and tips for Levenberg–Marquardt, such as how to adaptively update $\lambda$ or to solve the ridge-regularized least-square problem using a specialized QR algoritym, were described by Jorge Moré (author of the widely used library [MINPACK](https://en.wikipedia.org/wiki/MINPACK)) in ["The Levenberg-Marquardt algorithm: Implementation and theory" (1977)](https://link.springer.com/chapter/10.1007/BFb0067700).
+
+**Further reading (Tikhonov regularization)**: Strang [*Linear Algebra and Learning from Data*](https://math.mit.edu/~gs/learningfromdata/) section II.2, 18.065 OCW [video lecture 10](https://ocw.mit.edu/courses/18-065-matrix-methods-in-data-analysis-signal-processing-and-machine-learning-spring-2018/resources/lecture-10-survey-of-difficulties-with-ax-b/), [VMLS section 15.3](https://web.stanford.edu/~boyd/vmls/vmls.pdf#page=326).
+
 
 ## Lecture 16 (May 6)
 
